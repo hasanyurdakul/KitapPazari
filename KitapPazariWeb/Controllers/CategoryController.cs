@@ -17,7 +17,23 @@ namespace KitapPazariWeb.Controllers
             return View(objCategoryList);
         }
 
-        public IActionResult Create() {
+        public IActionResult Create()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Create(Category category)
+        {
+            //if (category.Name == category.DisplayOrder.ToString())
+            //{
+            //    ModelState.AddModelError("Name", "Display Order Cannot Match The Category Name");
+            //}
+            if (ModelState.IsValid)
+            {
+                _context.Categories.Add(category);
+                _context.SaveChanges();
+                return RedirectToAction("Index");
+            }
             return View();
         }
     }

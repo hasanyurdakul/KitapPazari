@@ -11,11 +11,12 @@
             <a asp-controller="Category" asp-action="Create" class="btn btn-primary"> <i class="bi bi-plus-square-fill"></i>&ensp; Create New Category</a>
         </div>
     </div>
-     <table class="table table-bordered table-striped">
+    <table class="table table-bordered table-striped">
         <thead>
             <tr>
                 <th>Category Name</th>
                 <th>Display Order</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -27,6 +28,16 @@
                     </td>
                     <td>
                         @obj.DisplayOrder
+                    </td>
+                    <td>
+                        <div class="w-75 btn-group" role="group">
+                            <a asp-controller="Category" asp-action="Edit" class="btn btn-primary mx-2">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                            <a asp-controller="Category" asp-action="Delete" class="btn btn-primary mx-2">
+                                <i class="bi bi-trash3"></i>
+                            </a>
+                        </div>
                     </td>
                 </tr>
             }
