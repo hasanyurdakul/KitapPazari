@@ -1,19 +1,20 @@
-﻿using KitapPazariWeb.Data;
-using KitapPazariWeb.Models;
+﻿using KitapPazariDataAccess.Data;
+using KitapPazariDataAccess.Repository.IRepository;
+using KitapPazariModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KitapPazariWeb.Controllers
 {
     public class CategoryController : Controller
     {
-        private readonly ApplicationDbContext _context;
-        public CategoryController(ApplicationDbContext context)
+        private readonly IUnitOfWork _unitOfWork;
+        public CategoryController(IUnitOfWork unitOfWork)
         {
-            _context = context;
+            _unitOfWork = unitOfWork;
         }
         public IActionResult Index()
         {
-            List<Category> objCategoryList = _context.Categories.ToList();
+            List<Category> objCategoryList = _unitOfWork.Category.GetAll().ToList();
             return View(objCategoryList);
         }
 
@@ -24,17 +25,71 @@ namespace KitapPazariWeb.Controllers
         [HttpPost]
         public IActionResult Create(Category category)
         {
-            //if (category.Name == category.DisplayOrder.ToString())
-            //{
-            //    ModelState.AddModelError("Name", "Display Order Cannot Match The Category Name");
-            //}
             if (ModelState.IsValid)
             {
-                _context.Categories.Add(category);
-                _context.SaveChanges();
+                _unitOfWork.Category.Add(category);
+                _unitOfWork .Save();
+                TempData["success"] = "Category Created Succesfully";
                 return RedirectToAction("Index");
             }
             return View();
+        }
+
+        public IActionResult Edit(int? id)
+        {
+            if (id == null && id == 0)
+            {
+                return NotFound();
+            }
+            Category? retrievedCategory = _unitOfWork.Category.Get(c => c.Id == id);
+            if (retrievedCategory == null)
+            {
+                return NotFound();
+            }
+            return View(retrievedCategory);
+        }
+        [HttpPost]
+        public IActionResult Edit(Category category)
+        {
+            if (ModelState.IsValid)
+            {
+                _unitOfWork.Category.Update(category);
+                _unitOfWork.Save();
+                TempData["success"] = "Category Edited Succesfully";
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
+
+        public IActionResult Delete(int? id)
+        {
+            if (id == null && id == 0)
+            {
+                return NotFound();
+            }
+            Category? retrievedCategory = _unitOfWork.Category.Get(c => c.Id == id);
+            if (retrievedCategory == null)
+            {
+                return NotFound();
+            }
+            return View(retrievedCategory);
+        }
+        [HttpPost]
+        [ActionName("Delete")]
+        public IActionResult DeletePOST(int? id)
+        {
+            Category? category = _unitOfWork.Category.Get(x => x.Id == id);
+            if (category == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                _unitOfWork.Category.Remove(category);
+                _unitOfWork.Save();
+                TempData["success"] = "Category Deleted Succesfully";
+                return RedirectToAction("Index");
+            }
         }
     }
 }

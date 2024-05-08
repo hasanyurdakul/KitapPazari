@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace KitapPazariWeb.Migrations
+namespace KitapPazariDataAccess.Migrations
 {
     /// <inheritdoc />
     public partial class mig1 : Migration

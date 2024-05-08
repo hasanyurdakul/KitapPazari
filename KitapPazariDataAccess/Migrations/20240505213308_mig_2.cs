@@ -4,7 +4,7 @@
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace KitapPazariWeb.Migrations
+namespace KitapPazariDataAccess.Migrations
 {
     /// <inheritdoc />
     public partial class mig_2 : Migration

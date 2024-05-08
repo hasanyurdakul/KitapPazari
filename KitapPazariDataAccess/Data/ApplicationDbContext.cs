@@ -1,8 +1,8 @@
-﻿using KitapPazariWeb.Models;
+﻿using KitapPazariModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;
 
-namespace KitapPazariWeb.Data
+namespace KitapPazariDataAccess.Data
 {
     public class ApplicationDbContext : DbContext
     {

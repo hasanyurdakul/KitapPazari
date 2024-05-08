@@ -8,10 +8,11 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/KitapPazariWeb.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm   bg-dark border-bottom box-shadow mb-3" data-bs-theme="dark">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm   bg-primary border-bottom box-shadow mb-3" data-bs-theme="dark">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">KitapPazariWeb</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -37,13 +38,15 @@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
+            <partial name="_Notification" />
+
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top bg-dark footer text-muted" data-bs-theme="dark">
+    <footer class="border-top bg-primary footer text-muted" data-bs-theme="dark">
         <div class="container text-center">
-            Made With <i class="bi bi-heart-fill"></i> by Hasan Yurdakul 
+            Made With <i class="bi bi-heart-fill"></i> by Hasan Yurdakul
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

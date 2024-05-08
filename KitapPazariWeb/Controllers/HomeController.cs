@@ -1,4 +1,4 @@
-using KitapPazariWeb.Models;
+using KitapPazariModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 

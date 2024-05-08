@@ -1,4 +1,4 @@
-namespace KitapPazariWeb.Models
+namespace KitapPazariModels
 {
     public class ErrorViewModel
     {
