@@ -5,35 +5,37 @@ using Microsoft.AspNetCore.Mvc;
 namespace KitapPazariWeb.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class CategoryController : Controller
+    public class ProductController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
-        public CategoryController(IUnitOfWork unitOfWork)
+        public ProductController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
         public IActionResult Index()
         {
-            List<Category> objCategoryList = _unitOfWork.Category.GetAll().ToList();
-            return View(objCategoryList);
+            List<Product> objProductList = _unitOfWork.Product.GetAll().ToList();
+            return View(objProductList);
         }
 
         public IActionResult Create()
         {
             return View();
         }
+
         [HttpPost]
-        public IActionResult Create(Category category)
+        public IActionResult Create(Product product)
         {
             if (ModelState.IsValid)
             {
-                _unitOfWork.Category.Add(category);
+                _unitOfWork.Product.Add(product);
                 _unitOfWork.Save();
-                TempData["success"] = "Category Created Succesfully";
+                TempData["success"] = "Product Created Succesfully";
                 return RedirectToAction("Index");
             }
             return View();
         }
+
 
         public IActionResult Edit(int? id)
         {
@@ -41,21 +43,22 @@ namespace KitapPazariWeb.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            Category? retrievedCategory = _unitOfWork.Category.Get(c => c.Id == id);
-            if (retrievedCategory == null)
+            Product? retrievedProduct = _unitOfWork.Product.Get(c => c.Id == id);
+            if (retrievedProduct == null)
             {
                 return NotFound();
             }
-            return View(retrievedCategory);
+            return View(retrievedProduct);
         }
+
         [HttpPost]
-        public IActionResult Edit(Category category)
+        public IActionResult Edit(Product product)
         {
             if (ModelState.IsValid)
             {
-                _unitOfWork.Category.Update(category);
+                _unitOfWork.Product.Update(product);
                 _unitOfWork.Save();
-                TempData["success"] = "Category Edited Succesfully";
+                TempData["success"] = "Product Edited Succesfully";
                 return RedirectToAction("Index");
             }
             return View();
@@ -67,27 +70,27 @@ namespace KitapPazariWeb.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            Category? retrievedCategory = _unitOfWork.Category.Get(c => c.Id == id);
-            if (retrievedCategory == null)
+            Product? retrievedProduct = _unitOfWork.Product.Get(c => c.Id == id);
+            if (retrievedProduct == null)
             {
                 return NotFound();
             }
-            return View(retrievedCategory);
+            return View(retrievedProduct);
         }
         [HttpPost]
         [ActionName("Delete")]
         public IActionResult DeletePOST(int? id)
         {
-            Category? category = _unitOfWork.Category.Get(x => x.Id == id);
-            if (category == null)
+            Product? product = _unitOfWork.Product.Get(x => x.Id == id);
+            if (product == null)
             {
                 return NotFound();
             }
             else
             {
-                _unitOfWork.Category.Remove(category);
+                _unitOfWork.Product.Remove(product);
                 _unitOfWork.Save();
-                TempData["success"] = "Category Deleted Succesfully";
+                TempData["success"] = "Product Deleted Succesfully";
                 return RedirectToAction("Index");
             }
         }
