@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KitapPazariModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace KitapPazariDataAccess.Repository.IRepository
 {
-    public interface IUnitOfWork
+    public interface IProductRepository:IRepository<Product>
     {
-        ICategoryRepository Category  { get; }
-        IProductRepository Product { get; }
-        void Save();
+        void Update(Product product);
     }
 }

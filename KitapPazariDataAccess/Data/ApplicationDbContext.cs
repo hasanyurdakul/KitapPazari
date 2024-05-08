@@ -17,6 +17,7 @@ namespace KitapPazariDataAccess.Data
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfiguration(new CategorySeed());
+            modelBuilder.ApplyConfiguration(new ProductSeed()); 
         }
 
     }
