@@ -3,8 +3,9 @@ using KitapPazariDataAccess.Repository.IRepository;
 using KitapPazariModels;
 using Microsoft.AspNetCore.Mvc;
 
-namespace KitapPazariWeb.Controllers
+namespace KitapPazariWeb.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class CategoryController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -28,7 +29,7 @@ namespace KitapPazariWeb.Controllers
             if (ModelState.IsValid)
             {
                 _unitOfWork.Category.Add(category);
-                _unitOfWork .Save();
+                _unitOfWork.Save();
                 TempData["success"] = "Category Created Succesfully";
                 return RedirectToAction("Index");
             }
