@@ -20,6 +20,10 @@
     <ProjectReference Include="..\KitapPazariDataAccess\KitapPazariDataAccess.csproj" />
     <ProjectReference Include="..\KitapPazariModels\KitapPazariModels.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\images\product\" />
+  </ItemGroup>
 	
 
 </Project>
