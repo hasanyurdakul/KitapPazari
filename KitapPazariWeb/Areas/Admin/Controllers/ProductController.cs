@@ -47,23 +47,39 @@ namespace KitapPazariWeb.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Upsert(ProductViewModel productViewModel, IFormFile?   formFile)
+        public IActionResult Upsert(ProductViewModel productViewModel, IFormFile? formFile)
         {
             if (ModelState.IsValid)
             {
                 string wwwRootPath = _webHostEnvironment.WebRootPath;
                 if (formFile != null)
                 {
-                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(formFile.FileName);    
+                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(formFile.FileName);
                     string productPath = Path.Combine(wwwRootPath, @"images\product\");
-                    using (var filestream = new FileStream(Path.Combine(productPath + fileName),FileMode.Create))
+                    //Deleting the old image -->
+                    if (!string.IsNullOrEmpty(productViewModel.Product.ImageURL))
+                    {
+                        var oldImagePath = Path.Combine(wwwRootPath, productViewModel.Product.ImageURL.TrimStart('\\'));
+                        if (System.IO.File.Exists(oldImagePath))
+                        {
+                            System.IO.File.Delete(oldImagePath);
+                        }
+                    }
+                    //Uploading the image -->
+                    using (var filestream = new FileStream(Path.Combine(productPath + fileName), FileMode.Create))
                     {
                         formFile.CopyTo(filestream);
                     }
-                    productViewModel.Product.ImageURL = @"images\product\"+fileName;
+                    productViewModel.Product.ImageURL = @"images\product\" + fileName;
                 }
-
-                _unitOfWork.Product.Add(productViewModel.Product);
+                if (productViewModel.Product.Id == 0)
+                {
+                    _unitOfWork.Product.Add(productViewModel.Product);
+                }
+                else
+                {
+                    _unitOfWork.Product.Update(productViewModel.Product);
+                }
                 _unitOfWork.Save();
                 TempData["success"] = "Product Created Succesfully";
                 return RedirectToAction("Index");
