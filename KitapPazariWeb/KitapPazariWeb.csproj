@@ -20,5 +20,6 @@
     <ProjectReference Include="..\KitapPazariDataAccess\KitapPazariDataAccess.csproj" />
     <ProjectReference Include="..\KitapPazariModels\KitapPazariModels.csproj" />
   </ItemGroup>
+	
 
 </Project>
