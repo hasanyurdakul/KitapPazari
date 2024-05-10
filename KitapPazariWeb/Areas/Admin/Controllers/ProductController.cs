@@ -104,26 +104,33 @@ namespace KitapPazariWeb.Areas.Admin.Controllers
             List<Product> objProductList = _unitOfWork.Product.GetAll(includeProperties: "Category").ToList();
             return Json(new { data = objProductList });
         }
+
+        [HttpDelete]
         public IActionResult Delete(int? id)
         {
-            var productToBeDeleted = _unitOfWork.Product.Get(u => u.Id == id);
-            if (productToBeDeleted == null)
+            Product productTobeDeleted = _unitOfWork.Product.Get(u => u.Id == id);
+            if (productTobeDeleted == null)
             {
-                return Json(new { success = false, message = "Error while deleting!" });
+                return Json(new { success = false, mesaage = "Error while Deleting" });
             }
 
-            var imageToBeDeletedPath = Path.Combine(_webHostEnvironment.WebRootPath, productToBeDeleted.ImageURL.TrimStart('\\'));
-            if (System.IO.File.Exists(imageToBeDeletedPath))
+            var oldImagePath =
+                Path.Combine(_webHostEnvironment.WebRootPath,
+                productTobeDeleted.ImageURL.TrimStart('\\'));
+
+            if (System.IO.File.Exists(oldImagePath))
             {
-                System.IO.File.Delete(imageToBeDeletedPath);
+                System.IO.File.Delete(oldImagePath);
             }
 
-            _unitOfWork.Product.Remove(productToBeDeleted);
+            _unitOfWork.Product.Remove(productTobeDeleted);
             _unitOfWork.Save();
 
-            return Json(new { success = true, message = "Succesfully deleted!" });
-
+            return Json(new { success = true, message = "Delete Successful" });
         }
+
+
+
 
         #endregion
     }
