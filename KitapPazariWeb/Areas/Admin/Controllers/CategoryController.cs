@@ -1,10 +1,13 @@
 ﻿using KitapPazariDataAccess.Repository.IRepository;
 using KitapPazariModels;
+using KitapPazariUtility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KitapPazariWeb.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles =StaticDetails.Role_Admin)]
     public class CategoryController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
