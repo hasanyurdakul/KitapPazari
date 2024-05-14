@@ -17,7 +17,7 @@
         <div class="row pt-3">
             <div class="col-md-12">
                 <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="row">
-                    <h3 class=" pb-3 mb-4 text-secondary text-center text-center ">Create A New Account.</h3>
+                    <h3 class=" pb-3 mb-4 text-secondary text-center text-center ">Create A New Account</h3>
                     <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
                     <div class="form-floating mb-3 col-md-12">
                         <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
@@ -34,7 +34,7 @@
                         <label asp-for="Input.ConfirmPassword" class="text-muted ms-2">Confirm Password</label>
                         <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
                     </div>
-                    <div class="form-floating mb-3">
+                    <div class="form-floating mb-3 col-md-6">
                         <select asp-for="Input.Role" asp-items="@Model.Input.RoleList" class=" form-select ">
                             <option selected disabled> Select a Role</option>
                         </select>
@@ -44,10 +44,11 @@
                     </div>
                 </form>
             </div>
+
             <div class="col-md-12 col-md-offset-2">
                 <section>
+                    <p class="divider-text d-flex pt-3"> or </p>
                     <h3>Use another service to register.</h3>
-                    <hr />
                     @{
                         if ((Model.ExternalLogins?.Count ?? 0) == 0)
                         {
