@@ -1,7 +1,9 @@
 using KitapPazariDataAccess.Repository.IRepository;
 using KitapPazariModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Security.Claims;
 
 namespace KitapPazariWeb.Areas.Customer.Controllers
 {
@@ -25,9 +27,36 @@ namespace KitapPazariWeb.Areas.Customer.Controllers
 
         public IActionResult Details(int id)
         {
-            Product product = _unitOfWork.Product.Get(u => u.Id == id,includeProperties:"Category");
+            ShoppingCart shoppingCart = new ShoppingCart()
+            {
+                Product = _unitOfWork.Product.Get(u => u.Id == id, includeProperties: "Category"),
+                Count = 1,
+                ProductId = id
+            };
 
-            return View(product);
+            return View(shoppingCart);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult Details(ShoppingCart shoppingCart)
+        {
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
+            shoppingCart.ApplicationUserId = userId;
+            ShoppingCart shoppingCartFromDatabase = _unitOfWork.ShoppingCart.Get(x=>x.ApplicationUserId==userId && x.ProductId==shoppingCart.ProductId);
+            if (shoppingCartFromDatabase != null)
+            {
+                shoppingCartFromDatabase.Count += shoppingCart.Count;
+                _unitOfWork.ShoppingCart.Update(shoppingCartFromDatabase);
+            }else
+            {
+                _unitOfWork.ShoppingCart.Add(shoppingCart);
+            }
+            TempData["success"] = "Cart Updated Successfully!";
+            _unitOfWork.Save();
+
+            return RedirectToAction(nameof(Index));
         }
 
         public IActionResult Privacy()
