@@ -1,4 +1,4 @@
-﻿
+﻿@model ShoppingCartViewModel
 <form method="post">
     <br />
     <div class="container">
@@ -12,7 +12,7 @@
                         </h5>
                     </div>
                     <div class="col-6 text-end">
-                        <a class="btn btn-outline-danger btn-sm">Back to Cart</a>
+                        <a asp-action="Index" class="btn btn-outline-danger btn-sm">Back to Cart</a>
                     </div>
                 </div>
             </div>
@@ -30,7 +30,8 @@
                                     <label>Name</label>
                                 </div>
                                 <div class="col-9">
-                                    <input class="form-control" />
+                                    <input asp-for="OrderHeader.Name" class="form-control" />
+                                    <span asp-validation-for="OrderHeader.Name" ></span>
                                 </div>
                             </div>
                             <div class="row my-1">
@@ -38,7 +39,9 @@
                                     <label>Phone</label>
                                 </div>
                                 <div class="col-9">
-                                    <input class="form-control" />
+                                    <input asp-for="OrderHeader.PhoneNumber" class="form-control" />
+                                    <span asp-validation-for="OrderHeader.PhoneNumber"></span>
+
                                 </div>
                             </div>
                             <div class="row my-1">
@@ -46,7 +49,9 @@
                                     <label>Street Address</label>
                                 </div>
                                 <div class="col-9">
-                                    <input class="form-control" />
+                                    <input asp-for="OrderHeader.StreetAddress" class="form-control" />
+                                    <span asp-validation-for="OrderHeader.StreetAddress"></span>
+
                                 </div>
                             </div>
                             <div class="row my-1">
@@ -54,7 +59,9 @@
                                     <label>City</label>
                                 </div>
                                 <div class="col-9">
-                                    <input class="form-control" />
+                                    <input asp-for="OrderHeader.City" class="form-control" />
+                                    <span asp-validation-for="OrderHeader.City"></span>
+
                                 </div>
                             </div>
                             <div class="row my-1">
@@ -62,7 +69,9 @@
                                     <label>State</label>
                                 </div>
                                 <div class="col-9">
-                                    <input class="form-control" />
+                                    <input asp-for="OrderHeader.State" class="form-control" />
+                                    <span asp-validation-for="OrderHeader.State"></span>
+
                                 </div>
                             </div>
                             <div class="row my-1">
@@ -70,7 +79,9 @@
                                     <label>Postal Code</label>
                                 </div>
                                 <div class="col-9">
-                                    <input class="form-control" />
+                                    <input asp-for="OrderHeader.PostalCode" class="form-control" />
+                                    <span asp-validation-for="OrderHeader.PostalCode"></span>
+
                                 </div>
                             </div>
                         </div>
@@ -79,18 +90,22 @@
                                 <span class="text-info">Order Summary:</span>
                             </h4>
                             <ul class="list-group mb-3">
-                                <li class="list-group-item d-flex justify-content-between">
-                                    <div>
-                                        <h6 class="my-0">Title</h6>
-                                        <small class="text-muted">Quantity: Count</small>
-                                    </div>
-                                    <span class="text-muted">Price * Count </span>
-                                </li>
+                                @foreach (ShoppingCart shoppingCart in Model.ShoppingCardList)
+                                {
+                                    <li class="list-group-item d-flex justify-content-between">
+                                        <div>
+                                            <h6 class="my-0">@shoppingCart.Product.Title</h6>
+                                            <small class="text-muted">Price: @shoppingCart.Price</small><br />
+                                            <small class="text-muted">Quantity: @shoppingCart.Count</small>
+                                        </div>
+                                        <span class="text-muted">@((shoppingCart.Price * @shoppingCart.Count).ToString("c", new System.Globalization.CultureInfo("tr-TR")))</span>
+                                    </li>
+                                }
 
 
                                 <li class="list-group-item d-flex justify-content-between bg-light">
-                                    <small class="text-info">Total (USD)</small>
-                                    <strong class="text-info">$$</strong>
+                                    <small class="text-info">Total (Turkish Lira)</small>
+                                    <strong class="text-info">@Model.OrderHeader.OrderTotal.ToString("c", new System.Globalization.CultureInfo("tr-TR"))</strong>
                                 </li>
                             </ul>
                         </div>
@@ -102,6 +117,7 @@
                     <div class="col-12 col-md-8 pt-2">
                         <p style="color:maroon; font-size:14px;">
                             Estimate Arrival Date:
+                            @DateTime.Now.AddDays(7).ToShortDateString() - @DateTime.Now.AddDays(14).ToShortDateString()
 
                         </p>
                     </div>
