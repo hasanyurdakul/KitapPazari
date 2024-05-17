@@ -1,6 +1,7 @@
 ﻿using KitapPazariDataAccess.Repository.IRepository;
 using KitapPazariModels;
 using KitapPazariModels.ViewModels;
+using KitapPazariUtility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -12,6 +13,7 @@ namespace KitapPazariWeb.Areas.Customer.Controllers
     public class CartController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
+        [BindProperty]
         public ShoppingCartViewModel ShoppingCartViewModel { get; set; }
         public CartController(IUnitOfWork unitOfWork)
         {
@@ -110,6 +112,70 @@ namespace KitapPazariWeb.Areas.Customer.Controllers
             return View(ShoppingCartViewModel);
         }
 
+        [HttpPost]
+        [ActionName("Summary")]
+        public IActionResult SummaryPOST()
+        {
+
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
+            ShoppingCartViewModel.ShoppingCardList = _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == userId, includeProperties: "Product");
+
+            //Mapping properties
+            ShoppingCartViewModel.OrderHeader.OrderDate = System.DateTime.Now;
+            ShoppingCartViewModel.OrderHeader.ApplicationUserId = userId;
+            ApplicationUser applicationUser = _unitOfWork.ApplicationUser.Get(u => u.Id == userId);
+
+            //Calculating the total price.
+            foreach (var shoppingCart in ShoppingCartViewModel.ShoppingCardList)
+            {
+                shoppingCart.Price = GetPriceBasedOnQuantity(shoppingCart);
+                ShoppingCartViewModel.OrderHeader.OrderTotal += (shoppingCart.Price * shoppingCart.Count);
+            }
+
+            //Checking the account for possible company relation
+            if (applicationUser.CompanyId.GetValueOrDefault() == 0)
+            {
+                //It's a regular customer account. 
+                ShoppingCartViewModel.OrderHeader.OrderStatus = StaticDetails.StatusPending;
+                ShoppingCartViewModel.OrderHeader.PaymentStatus = StaticDetails.PaymentStatusPending;
+            }
+            else
+            {
+                //It's a company account.  
+                ShoppingCartViewModel.OrderHeader.OrderStatus = StaticDetails.StatusApproved;
+                ShoppingCartViewModel.OrderHeader.PaymentStatus = StaticDetails.PaymentStatusDelayedPayment;
+            }
+            _unitOfWork.OrderHeader.Add(ShoppingCartViewModel.OrderHeader);
+            _unitOfWork.Save();
+
+            //Binding orderDetails to orderHeader
+            foreach (var shoppingCart in ShoppingCartViewModel.ShoppingCardList)
+            {
+                OrderDetail orderDetail = new OrderDetail()
+                {
+                    ProductId = shoppingCart.ProductId,
+                    OrderHeaderId = ShoppingCartViewModel.OrderHeader.Id,
+                    Price = shoppingCart.Price,
+                    Count = shoppingCart.Count,
+                };
+                _unitOfWork.OrderDetail.Add(orderDetail);
+                _unitOfWork.Save();
+            }
+
+            //Getting the payment
+            if (applicationUser.CompanyId.GetValueOrDefault() == 0)
+            {
+                //It's a regular customer account. Need to take payment. 
+                //Stripe logic TBA.
+            }
+            return RedirectToAction(nameof(OrderConfirmation),new {id=ShoppingCartViewModel.OrderHeader.Id});
+        }
+
+        public IActionResult OrderConfirmation(int id)
+        {
+            return View(id);
+        }
 
         private double GetPriceBasedOnQuantity(ShoppingCart shoppingCart)
         {
