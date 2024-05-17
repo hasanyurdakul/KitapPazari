@@ -22,5 +22,7 @@ namespace KitapPazariModels
         [ValidateNever]
         [ForeignKey(nameof(ApplicationUserId))]
         public ApplicationUser ApplicationUser { get; set; }
+        [NotMapped]
+        public double Price { get; set; }
     }
 }
