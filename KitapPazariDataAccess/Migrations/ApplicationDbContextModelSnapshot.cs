@@ -63,6 +63,80 @@ namespace KitapPazariDataAccess.Migrations
                         });
                 });
 
+            modelBuilder.Entity("KitapPazariModels.Company", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PostalCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("State")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StreetAddress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Companies");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            City = "Tech City",
+                            Name = "Tech Solution",
+                            PhoneNumber = "5554443322",
+                            PostalCode = "123123",
+                            State = "IL",
+                            StreetAddress = "123 Tech St."
+                        },
+                        new
+                        {
+                            Id = 2,
+                            City = "Readers City",
+                            Name = "Readers Club",
+                            PhoneNumber = "6665552233",
+                            PostalCode = "345345",
+                            State = "IL",
+                            StreetAddress = "Readers St."
+                        },
+                        new
+                        {
+                            Id = 3,
+                            City = "Vivid City",
+                            Name = "Vivid Books",
+                            PhoneNumber = "8887776565",
+                            PostalCode = "890890",
+                            State = "LA",
+                            StreetAddress = "23 Vivid St."
+                        },
+                        new
+                        {
+                            Id = 4,
+                            City = "Worms City",
+                            Name = "Book Worms",
+                            PhoneNumber = "9997775567",
+                            PostalCode = "567567",
+                            State = "NV",
+                            StreetAddress = "Worms St."
+                        });
+                });
+
             modelBuilder.Entity("KitapPazariModels.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -353,12 +427,10 @@ namespace KitapPazariDataAccess.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderKey")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -395,12 +467,10 @@ namespace KitapPazariDataAccess.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");

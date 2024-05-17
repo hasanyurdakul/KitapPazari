@@ -19,7 +19,7 @@ namespace KitapPazariWeb.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
-            List<Company> objCompanyList = _unitOfWork.Company.GetAll(includeProperties: "Category").ToList();
+            List<Company> objCompanyList = _unitOfWork.Company.GetAll().ToList();
 
             return View(objCompanyList);
         }
