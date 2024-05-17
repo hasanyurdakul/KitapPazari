@@ -4,25 +4,23 @@ using KitapPazariModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace KitapPazariDataAccess.Repository
 {
-    public class CategoryRepository : Repository<Category>, ICategoryRepository
+    public class CompanyRepository : Repository<Company>, ICompanyRepository
     {
         private ApplicationDbContext _context;
-        public CategoryRepository(ApplicationDbContext context) : base(context)
+
+        public CompanyRepository(ApplicationDbContext context) : base(context)
         {
             _context = context;
         }
 
-       
-
-        public void Update(Category category)
+        public void Update(Company company)
         {
-            _context.Categories.Update(category);
+            _context.Companies.Update(company);
         }
     }
 }
