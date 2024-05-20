@@ -248,7 +248,7 @@
                             {
                                 if (Model.OrderHeader.OrderStatus == StaticDetails.StatusApproved)
                                 {
-                                    <button type="submit" class="btn btn-primary form-control my-1">Start Processing</button>
+                                    <button asp-action="StartProcessing" type="submit" class="btn btn-primary form-control my-1">Start Processing</button>
                                 }
                                 if (Model.OrderHeader.OrderStatus == StaticDetails.StatusInProcess)
                                 {

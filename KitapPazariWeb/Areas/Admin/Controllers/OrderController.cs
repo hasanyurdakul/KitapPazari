@@ -12,6 +12,7 @@ using System.Security.Claims;
 namespace KitapPazariWeb.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize]
     public class OrderController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -37,8 +38,8 @@ namespace KitapPazariWeb.Areas.Admin.Controllers
             return View(_orderViewModel);
         }
 
-        [Authorize(Roles = StaticDetails.Role_Employee + "," + StaticDetails.Role_Admin)]
         [HttpPost]
+        [Authorize(Roles = StaticDetails.Role_Employee + "," + StaticDetails.Role_Admin)]
         public IActionResult UpdateOrderDetail()
         {
             var orderHeaderFromDatabase = _unitOfWork.OrderHeader.Get(u => u.Id == _orderViewModel.OrderHeader.Id); orderHeaderFromDatabase.Name = _orderViewModel.OrderHeader.Name;
@@ -64,6 +65,18 @@ namespace KitapPazariWeb.Areas.Admin.Controllers
             });
         }
 
+        [HttpPost]
+        [Authorize(Roles = StaticDetails.Role_Employee + "," + StaticDetails.Role_Admin)]
+        public IActionResult StartProcessing()
+        {
+           _unitOfWork.OrderHeader.UpdateStatus(_orderViewModel.OrderHeader.Id, StaticDetails.StatusInProcess);
+            _unitOfWork.Save();
+            TempData["Success"] = "Order Detail Updated Successfully";
+            return RedirectToAction(nameof(Details), new
+            {
+                orderId = _orderViewModel.OrderHeader.Id
+            });
+        }
         #region API CALLS
         [HttpGet]
         public IActionResult GetAll(string status)
