@@ -6,10 +6,12 @@ using Microsoft.AspNetCore.Identity;
 using KitapPazariUtility;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Stripe;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddTransient<StripeSettings>();
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(
@@ -26,7 +28,7 @@ builder.Services.ConfigureApplicationCookie(options =>
 builder.Services.AddRazorPages();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IEmailSender,EmailSender>();
-  
+
 
 var app = builder.Build();
 

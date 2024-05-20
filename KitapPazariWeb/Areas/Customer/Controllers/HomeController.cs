@@ -1,7 +1,9 @@
 using KitapPazariDataAccess.Repository.IRepository;
 using KitapPazariModels;
+using KitapPazariUtility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using System.Diagnostics;
 using System.Security.Claims;
 
@@ -12,11 +14,13 @@ namespace KitapPazariWeb.Areas.Customer.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly StripeSettings _stripeSettings;
 
-        public HomeController(ILogger<HomeController> logger, IUnitOfWork unitOfWork)
+        public HomeController(ILogger<HomeController> logger, IUnitOfWork unitOfWork, IOptions<StripeSettings> stripeSettings)
         {
             _logger = logger;
             _unitOfWork = unitOfWork;
+            _stripeSettings = stripeSettings.Value;
         }
 
         public IActionResult Index()
