@@ -185,11 +185,11 @@ namespace KitapPazariWeb.Areas.Customer.Controllers
                         PriceData = new SessionLineItemPriceDataOptions()
                         {
                             UnitAmount = Convert.ToInt64(shoppingCartItem.Price * 100),
-                            Currency = "usd",
+                            Currency = "try",
                             ProductData = new SessionLineItemPriceDataProductDataOptions()
                             {
                                 Name = shoppingCartItem.Product.Title,
-                                //Images = new List<string> { shoppingCartItem.Product.ImageURL }
+                                Description = shoppingCartItem.Product.Description,
                             }
                         },
                         Quantity = shoppingCartItem.Count,
@@ -200,9 +200,9 @@ namespace KitapPazariWeb.Areas.Customer.Controllers
 
                 var service = new SessionService();
                 Session session = service.Create(options);
-                _unitOfWork.OrderHeader.UpdateStripePaymentId(ShoppingCartViewModel.OrderHeader.Id, session.Id,session.PaymentIntentId);
+                _unitOfWork.OrderHeader.UpdateStripePaymentId(ShoppingCartViewModel.OrderHeader.Id, session.Id, session.PaymentIntentId);
                 _unitOfWork.Save();
-                Response.Headers.Add("Location",session.Url);
+                Response.Headers.Add("Location", session.Url);
                 return StatusCode(303);
 
             }
@@ -211,6 +211,22 @@ namespace KitapPazariWeb.Areas.Customer.Controllers
 
         public IActionResult OrderConfirmation(int id)
         {
+            OrderHeader orderHeader = _unitOfWork.OrderHeader.Get(u => u.Id == id, includeProperties: "ApplicationUser");
+            if (orderHeader.PaymentStatus != StaticDetails.PaymentStatusDelayedPayment)
+            {
+                //This is an order coming from a Customer account.
+                var service = new SessionService();
+                Session session = service.Get(orderHeader.SessionId);
+                if (session.PaymentStatus.ToLower() == "paid")
+                {
+                    _unitOfWork.OrderHeader.UpdateStripePaymentId(id, session.Id, session.PaymentIntentId);
+                    _unitOfWork.OrderHeader.UpdateStatus(id, StaticDetails.StatusApproved, StaticDetails.PaymentStatusApproved);
+                    _unitOfWork.Save();
+                }
+            }
+            List<ShoppingCart> shoppingCarts = _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == orderHeader.ApplicationUserId).ToList();
+            _unitOfWork.ShoppingCart.RemoveRange(shoppingCarts);
+            _unitOfWork.Save();
             return View(id);
         }
 
