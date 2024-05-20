@@ -14,13 +14,11 @@ namespace KitapPazariWeb.Areas.Customer.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly StripeSettings _stripeSettings;
 
-        public HomeController(ILogger<HomeController> logger, IUnitOfWork unitOfWork, IOptions<StripeSettings> stripeSettings)
+        public HomeController(ILogger<HomeController> logger, IUnitOfWork unitOfWork)
         {
             _logger = logger;
             _unitOfWork = unitOfWork;
-            _stripeSettings = stripeSettings.Value;
         }
 
         public IActionResult Index()

@@ -4,6 +4,7 @@ using KitapPazariModels.ViewModels;
 using KitapPazariUtility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Stripe.Checkout;
 using System.Security.Claims;
 
 namespace KitapPazariWeb.Areas.Customer.Controllers
@@ -168,9 +169,44 @@ namespace KitapPazariWeb.Areas.Customer.Controllers
             {
                 //It's a regular customer account. Need to take payment. 
                 //Stripe logic TBA.
+                var domain = Request.Scheme + "://" + Request.Host.Value + "/";
+                var options = new SessionCreateOptions
+                {
+                    SuccessUrl = domain + $"customer/cart/OrderConfirmation?id={ShoppingCartViewModel.OrderHeader.Id}",
+                    CancelUrl = domain + "customer/cart/index",
+                    LineItems = new List<SessionLineItemOptions> { },
+                    Mode = "payment",
+                };
+
+                foreach (var shoppingCartItem in ShoppingCartViewModel.ShoppingCardList)
+                {
+                    var sessionLineItem = new SessionLineItemOptions()
+                    {
+                        PriceData = new SessionLineItemPriceDataOptions()
+                        {
+                            UnitAmount = Convert.ToInt64(shoppingCartItem.Price * 100),
+                            Currency = "usd",
+                            ProductData = new SessionLineItemPriceDataProductDataOptions()
+                            {
+                                Name = shoppingCartItem.Product.Title,
+                                //Images = new List<string> { shoppingCartItem.Product.ImageURL }
+                            }
+                        },
+                        Quantity = shoppingCartItem.Count,
+                    };
+                    options.LineItems.Add(sessionLineItem);
+                }
+
+
+                var service = new SessionService();
+                Session session = service.Create(options);
+                _unitOfWork.OrderHeader.UpdateStripePaymentId(ShoppingCartViewModel.OrderHeader.Id, session.Id,session.PaymentIntentId);
+                _unitOfWork.Save();
+                Response.Headers.Add("Location",session.Url);
+                return StatusCode(303);
 
             }
-            return RedirectToAction(nameof(OrderConfirmation),new {id=ShoppingCartViewModel.OrderHeader.Id});
+            return RedirectToAction(nameof(OrderConfirmation), new { id = ShoppingCartViewModel.OrderHeader.Id });
         }
 
         public IActionResult OrderConfirmation(int id)
