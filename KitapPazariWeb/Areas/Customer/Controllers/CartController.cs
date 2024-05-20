@@ -168,6 +168,7 @@ namespace KitapPazariWeb.Areas.Customer.Controllers
             {
                 //It's a regular customer account. Need to take payment. 
                 //Stripe logic TBA.
+
             }
             return RedirectToAction(nameof(OrderConfirmation),new {id=ShoppingCartViewModel.OrderHeader.Id});
         }

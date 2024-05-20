@@ -18,11 +18,38 @@ namespace KitapPazariDataAccess.Repository
             _context = context;
         }
 
-       
+
 
         public void Update(OrderHeader orderHeader)
         {
             _context.OrderHeaders.Update(orderHeader);
+        }
+
+        public void UpdateStatus(int id, string orderStatus, string? paymentStatus = null)
+        {
+            var orderFromDatabase = _context.OrderHeaders.FirstOrDefault(u => u.Id == id);
+            if (orderFromDatabase != null)
+            {
+                orderFromDatabase.OrderStatus = orderStatus;
+                if (!string.IsNullOrEmpty(paymentStatus))
+                {
+                    orderFromDatabase.PaymentStatus = paymentStatus;
+                }
+            }
+        }
+
+        public void UpdateStripePaymentId(int id, string sessionId, string paymentIntentId)
+        {
+            var orderFromDatabase = _context.OrderHeaders.FirstOrDefault(u => u.Id == id);
+            if (!string.IsNullOrEmpty(sessionId))
+            {
+                orderFromDatabase.SessionId=sessionId;
+            }
+            if (!string.IsNullOrEmpty(paymentIntentId))
+            {
+                orderFromDatabase.PaymentIntentId = paymentIntentId;
+                orderFromDatabase.PaymentDate = DateTime.Now;
+            }
         }
     }
 }
