@@ -26,33 +26,39 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-area="Customer" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="Admin" asp-controller="Order" asp-action="Index">Order Management</a>
-                        </li>
-                        @*@if (User.IsInRole(StaticDetails.Role_Admin))
-        {*@
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Content Management
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li class="nav-item">
-                                    <a class="dropdown-item  " asp-area="Admin" asp-controller="Category" asp-action="Index">Categories</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="dropdown-item  " asp-area="Admin" asp-controller="Product" asp-action="Index">Products</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="dropdown-item  " asp-area="Admin" asp-controller="Company" asp-action="Index">Companies</a>
-                                </li>
-                            </ul>
-                        </li>
-                        @*}*@
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="Customer" asp-controller="Cart" asp-action="Index">
-                                <i class="bi bi-cart"></i> &nbsp; (0)
-                            </a>
-                        </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="Admin" asp-controller="Order" asp-action="Index">Order Management</a>
+                            </li>
+                        }
+                        @if (User.IsInRole(StaticDetails.Role_Admin))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Content Management
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="nav-item">
+                                        <a class="dropdown-item  " asp-area="Admin" asp-controller="Category" asp-action="Index">Categories</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="dropdown-item  " asp-area="Admin" asp-controller="Product" asp-action="Index">Products</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="dropdown-item  " asp-area="Admin" asp-controller="Company" asp-action="Index">Companies</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        }
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="Customer" asp-controller="Cart" asp-action="Index">
+                                    <i class="bi bi-cart"></i> &nbsp;
+                                </a>
+                            </li>
+                        }
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
