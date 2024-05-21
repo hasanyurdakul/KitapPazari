@@ -51,12 +51,15 @@ namespace KitapPazariWeb.Areas.Customer.Controllers
             {
                 shoppingCartFromDatabase.Count += shoppingCart.Count;
                 _unitOfWork.ShoppingCart.Update(shoppingCartFromDatabase);
-            }else
+                _unitOfWork.Save();
+            }
+            else
             {
                 _unitOfWork.ShoppingCart.Add(shoppingCart);
+                _unitOfWork.Save();
+                HttpContext.Session.SetInt32(StaticDetails.SessionCart,_unitOfWork.ShoppingCart.GetAll(u=>u.ApplicationUserId==userId).Count()) ;
             }
             TempData["success"] = "Cart Updated Successfully!";
-            _unitOfWork.Save();
 
             return RedirectToAction(nameof(Index));
         }

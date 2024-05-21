@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -51,11 +53,21 @@
                                 </ul>
                             </li>
                         }
-                        @if (User.Identity.IsAuthenticated)
+                        @if (HttpContextAccessor.HttpContext.Session.GetInt32(StaticDetails.SessionCart) != null)
                         {
                             <li class="nav-item">
                                 <a class="nav-link" asp-area="Customer" asp-controller="Cart" asp-action="Index">
                                     <i class="bi bi-cart"></i> &nbsp;
+                                    (@HttpContextAccessor.HttpContext.Session.GetInt32(StaticDetails.SessionCart))
+                                </a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="Customer" asp-controller="Cart" asp-action="Index">
+                                    <i class="bi bi-cart"></i> &nbsp;
+                                    (0)
                                 </a>
                             </li>
                         }
