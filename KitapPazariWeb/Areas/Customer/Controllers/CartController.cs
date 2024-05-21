@@ -60,6 +60,7 @@ namespace KitapPazariWeb.Areas.Customer.Controllers
                 if (shoppingCartFromDatabase.Count <= 1)
                 {
                     _unitOfWork.ShoppingCart.Remove(shoppingCartFromDatabase);
+                    HttpContext.Session.SetInt32(StaticDetails.SessionCart, _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == shoppingCartFromDatabase.ApplicationUserId).Count() - 1);
                 }
                 else
                 {
@@ -78,8 +79,10 @@ namespace KitapPazariWeb.Areas.Customer.Controllers
             var shoppingCartFromDatabase = _unitOfWork.ShoppingCart.Get(u => u.Id == cartId);
             if (shoppingCartFromDatabase != null)
             {
+                HttpContext.Session.SetInt32(StaticDetails.SessionCart, _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == shoppingCartFromDatabase.ApplicationUserId).Count() - 1);
                 _unitOfWork.ShoppingCart.Remove(shoppingCartFromDatabase);
                 _unitOfWork.Save();
+
             }
 
             return RedirectToAction(nameof(Index));

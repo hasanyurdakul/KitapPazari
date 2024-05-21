@@ -23,6 +23,7 @@ namespace KitapPazariWeb.Areas.Customer.Controllers
 
         public IActionResult Index()
         {
+           
             IEnumerable<Product> productList = _unitOfWork.Product.GetAll(includeProperties: "Category");
             return View(productList);
         }
