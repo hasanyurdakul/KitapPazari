@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Register";
 }
+@using KitapPazariUtility
 
 
 <div class=" card shadow border-0 mt-4 ">
@@ -64,27 +65,27 @@
                         <label asp-for="Input.PostalCode" class="text-muted ms-2">Postal Code</label>
                         <span asp-validation-for="Input.PostalCode" class="text-danger"></span>
                     </div>
+                    @if (User.IsInRole(StaticDetails.Role_Admin))
+                    {<div class="form-floating mb-3 col-md-6">
+                            <select asp-for="Input.Role" asp-items="@Model.Input.RoleList" class=" form-select ">
+                                <option selected disabled> Select a Role</option>
+                            </select>
+                        </div>
+                        <div class="form-floating mb-3 col-md-6">
+                            <select asp-for="Input.CompanyId" asp-items="@Model.Input.CompanyList" class=" form-select  " style="display:none">
+                                <option selected disabled> Select a Company</option>
+                            </select>
+                        </div>}
 
-                    <div class="form-floating mb-3 col-md-6">
-                        <select asp-for="Input.Role" asp-items="@Model.Input.RoleList" class=" form-select ">
-                            <option selected disabled> Select a Role</option>
-                        </select>
-                    </div>
-                    <div class="form-floating mb-3 col-md-6">
-                        <select asp-for="Input.CompanyId" asp-items="@Model.Input.CompanyList" class=" form-select  " style="display:none">
-                            <option selected disabled> Select a Company</option>
-                        </select>
-                    </div>
                     <div class="col-12">
                         <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
                     </div>
                 </form>
             </div>
 
-            <div class="col-md-12 col-md-offset-2">
+            <div class="col-md-12 p-3 text-center">
                 <section>
                     <p class="divider-text d-flex pt-3"> or </p>
-                    <h3>Use another service to register.</h3>
                     @{
                         if ((Model.ExternalLogins?.Count ?? 0) == 0)
                         {
