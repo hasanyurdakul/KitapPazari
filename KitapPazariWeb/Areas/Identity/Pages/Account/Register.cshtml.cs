@@ -172,8 +172,8 @@ namespace KitapPazariWeb.Areas.Identity.Pages.Account
                 user.State = Input.State;
 
                 if (Input.Role == StaticDetails.Role_Company)
-                {   
-                    user.CompanyId= Input.CompanyId;
+                {
+                    user.CompanyId = Input.CompanyId;
                 }
 
 
@@ -211,7 +211,14 @@ namespace KitapPazariWeb.Areas.Identity.Pages.Account
                     }
                     else
                     {
-                        await _signInManager.SignInAsync(user, isPersistent: false);
+                        if (User.IsInRole(StaticDetails.Role_Admin))
+                        {
+                            TempData["success"]= "User created successfully";
+                        }
+                        else
+                        {
+                            await _signInManager.SignInAsync(user, isPersistent: false);
+                        }
                         return LocalRedirect(returnUrl);
                     }
                 }
