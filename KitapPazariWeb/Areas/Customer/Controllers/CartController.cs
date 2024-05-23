@@ -192,7 +192,6 @@ namespace KitapPazariWeb.Areas.Customer.Controllers
                             ProductData = new SessionLineItemPriceDataProductDataOptions()
                             {
                                 Name = shoppingCartItem.Product.Title,
-                                Description = shoppingCartItem.Product.Description,
                             }
                         },
                         Quantity = shoppingCartItem.Count,
