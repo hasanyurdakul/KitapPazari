@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KitapPazariDataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240520181449_mig_124124441")]
-    partial class mig_124124441
+    [Migration("20240524142827_mig_1")]
+    partial class mig_1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -298,86 +298,100 @@ namespace KitapPazariDataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            Author = "Billy Spark",
+                            Author = "John Steinbeck",
                             CategoryId = 1,
-                            Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
-                            ISBN = "SWD9999001",
+                            Description = "Pulitzer ve Nobel Edebiyat Ödülü’nü kazanan John Steinbeck’in çağımızın toplumsal ve insani meselelerini ustalıkla resmettiği eserleri modern dünya edebiyatının başyapıtları arasında yer alır. Steinbeck romanlarında yalın ve keskin bir gerçeklik sunarken yine de her seferinde çarpıcı bir öykü ile çıkar okurunun karşısına. Tarihin bir kesitindeki dramı insani ayrıntıları kaçırmadan sergilerken, \"tozpembe olmayan gerçekçi bir umudun\" türküsünü dillendirir. Bu nedenle eserleri edebi değerleri kadar güncelliklerini de hiç yitirmemiştir.\r\n\r\nFareler ve İnsanlar, birbirine zıt karakterdeki iki mevsimlik tarım işçisinin, zeki George Milton ve onun güçlü kuvvetli ama akli dengesi bozuk yoldaşı Lennie Small’un öyküsünü anlatır. Küçük bir toprak satın alıp insanca bir hayat yaşamanın hayalini kuran bu ikilinin öyküsünde dostluk ve dayanışma duygusu önemli bir yer tutar. Steinbeck insanın insanla ilişkisini anlatmakla kalmaz insanın doğayla ve toplumla kurduğu ilişkileri de konu eder bu destansı romanında. Kitabın ismine ilham veren Robert Burns şiirindeki gibi; \"En iyi planları farelerin ve insanların / Sıkça ters gider... ",
+                            ISBN = "9789755705859",
                             ImageURL = "",
-                            ListPrice = 99.0,
-                            Price = 90.0,
-                            Price100 = 80.0,
-                            Price50 = 85.0,
-                            Title = "Fortune of Time"
+                            ListPrice = 62.899999999999999,
+                            Price = 62.899999999999999,
+                            Price100 = 62.899999999999999,
+                            Price50 = 62.899999999999999,
+                            Title = "Fareler ve İnsanlar"
                         },
                         new
                         {
                             Id = 2,
-                            Author = "Nancy Hoover",
+                            Author = " J. R. R. Tolkien",
                             CategoryId = 1,
-                            Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
-                            ISBN = "CAW777777701",
+                            Description = "Dünya ikiye bölünmüştür, denir Tolkien'ın yapıtı söz konusu olduğunda: Yüzüklerin Efendisi'ni okumuş olanlar ve okuyacak olanlar. 1997 ile birlikte, çok sayıda Türkiyeli okur da \"okumuş olanlar\" safına geçme fırsatı buldu. Kitabın Türkçe basımı Yüzüklerin Efendisi'ne duyulan ilginin evrenselliğini kanıtladı.\r\n\r\nYapıtın bu başarısını taçlandırmak için üç kısmı bir araya getiren bu özel, tek cilt edisyonu sunuyoruz. Hem hâlâ okumamış, \"okuyacak olanlar\" için, hem de bu güzel kitabın kütüphanenizde gelecek kuşaklara devrolacak kadar kalıcı olması için...\r\n\r\nYüzüklerin Efendisi yirminci yüzyılın en çok okunan yüz kitabı arasında en başta geliyor; bilimkurgu, fantazi, polisiye, best-seller ya da ana akım demeden, tüm edebiyat türleri arasında tartışmasız bir önderliğe sahip. Bir açıdan bakarsanız bir fantazi romanı, başka bir açıdan baktığınızda, insanlık durumu, sorumluluk, iktidar ve savaş üzerine bir roman. bir yolculuk, bir büyüme öyküsü; fedakarlık ve dostluk üzerine, hırs ve ihanet üzerine bir roman.",
+                            ISBN = "9789753423472",
                             ImageURL = "",
-                            ListPrice = 40.0,
-                            Price = 30.0,
-                            Price100 = 20.0,
-                            Price50 = 25.0,
-                            Title = "Dark Skies"
+                            ListPrice = 549.89999999999998,
+                            Price = 549.89999999999998,
+                            Price100 = 549.89999999999998,
+                            Price50 = 549.89999999999998,
+                            Title = "Yüzüklerin Efendisi"
                         },
                         new
                         {
                             Id = 3,
-                            Author = "Julian Button",
+                            Author = "Jose Mauro De Vasconcelos",
                             CategoryId = 1,
-                            Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
-                            ISBN = "RITO5555501",
+                            Description = "Yazarlıkta karar kılıncaya kadar, boks antrenörlüğünden ressam ve heykeltıraşlara modellik yapmaya, muz plantasyonlarında hamallıktan gece kulüplerinde garsonluğa kadar çeşitli işlerde çalışan Jose Mauro de Vasconcelos’un başyapıtı Şeker Portakalı, *günün birinde acıyı keşfeden küçük bir çocuğun öyküsü*dür. Çok yoksul bir ailenin oğlu olarak dünyaya gelen, dokuz yaşında yüzme öğrenirken bir gün yüzme şampiyonu olmanın hayalini kuran Vasconcelos’un çocukluğundan derin izler taşıyan Şeker Portakalı, yaşamın beklenmedik değişimleri karşısında büyük sarsıntılar yaşayan küçük Zeze’nin başından geçenleri anlatır. Vasconcelos, tam on iki günde yazdığı bu romanı *yirmi yıldan fazla bir zaman yüreğinde taşıdığını* söyler.\r\n\r\n",
+                            ISBN = "9789750738609",
                             ImageURL = "",
-                            ListPrice = 55.0,
-                            Price = 50.0,
-                            Price100 = 35.0,
-                            Price50 = 40.0,
-                            Title = "Vanish in the Sunset"
+                            ListPrice = 101.84999999999999,
+                            Price = 101.84999999999999,
+                            Price100 = 101.84999999999999,
+                            Price50 = 101.84999999999999,
+                            Title = "Şeker Portakalı"
                         },
                         new
                         {
                             Id = 4,
-                            Author = "Abby Muscles",
+                            Author = "Jose Saramago",
                             CategoryId = 1,
-                            Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
-                            ISBN = "WS3333333301",
+                            Description = "Usta yazarın belki de en etkileyici yapıtı olan, sinemaya da uyarlanmış Körlük, toplumsal yaşamın nasıl bir vahşete dönüşebileceğini müthiş bir incelikle gözler önüne sererken, insana dair son umut kırıntısını da bir kadının tek başına örgütlediği dayanışma ve direniş örneğiyle sergileyen unutulmaz eserler arasında yerini almıştır.",
+                            ISBN = "9786254182228",
                             ImageURL = "",
-                            ListPrice = 70.0,
-                            Price = 65.0,
-                            Price100 = 55.0,
-                            Price50 = 60.0,
-                            Title = "Cotton Candy"
+                            ListPrice = 155.75,
+                            Price = 155.75,
+                            Price100 = 155.75,
+                            Price50 = 155.75,
+                            Title = "Körlük"
                         },
                         new
                         {
                             Id = 5,
-                            Author = "Ron Parker",
+                            Author = "Emily Bronte",
                             CategoryId = 1,
-                            Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
-                            ISBN = "SOTJ1111111101",
+                            Description = "Genç yaşta hayatını kaybeden Emily Jane Brontё’nin tek romanı olan Uğultulu Tepeler, okuyucu üzerinde büyük etki bırakıyor. Aynı zamanda bir şair olan yazar, şiirsel anlatım yeteneğini bu eserde de göstererek keyifli bir okuma sunuyor. İngiliz edebiyatının klasikleri arasında yer alan başarılı roman, oldukça farklı kurgusu ile okuyucuda merak uyandırıyor.\r\n\r\nAşk romanı olarak nitelendirilen bu eser, barındırdığı psikolojik ögelerle zenginleşerek beklentinin çok daha ötesine geçiyor. Victoria Dönemi’ni başarılı şekilde yansıtan kitabın, ayrıca yazarın hayatından da gerçek izler taşıdığı düşünülüyor. ",
+                            ISBN = "9789750738913",
                             ImageURL = "",
-                            ListPrice = 30.0,
-                            Price = 27.0,
-                            Price100 = 20.0,
-                            Price50 = 25.0,
-                            Title = "Rock in the Ocean"
+                            ListPrice = 81.5,
+                            Price = 81.5,
+                            Price100 = 81.5,
+                            Price50 = 81.5,
+                            Title = "Uğultulu Tepeler"
                         },
                         new
                         {
                             Id = 6,
-                            Author = "Laura Phantom",
+                            Author = "John Steinbeck",
                             CategoryId = 1,
-                            Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
-                            ISBN = "FOT000000001",
+                            Description = "Bir Meksika halk hikâyesinden esinlenmiş İnci, bir zamanlar İspanya Kralı'na büyük zenginlikler getiren bir koyda yaşayan fakir bir inci avcısının, Kino'nun ve ailesinin hikâyesini anlatır. Kino'nun çocuğunu kurtarmak umuduyla daldığı denizden çıkardığı eşi benzeri görülmemiş inci, yalnızca umut değil yıkım da getirecektir. İncinin özü insanların özüne; Kino'nun kulaklarında çınlayan ve kasabaya yayılan İncinin Türküsü, ailenin, kötülüğün, umudun ve düşmanlığın türküsüne karışacaktır.\r\nSteinbeck, Kino'nun derinliklerden söküp çıkardığı inci ile içinde yaşadığımız dünyaya ve insanın dramına ışık tutuyor.",
+                            ISBN = "9789755705866",
                             ImageURL = "",
-                            ListPrice = 25.0,
-                            Price = 23.0,
-                            Price100 = 20.0,
-                            Price50 = 22.0,
-                            Title = "Leaves and Wonders"
+                            ListPrice = 62.899999999999999,
+                            Price = 62.899999999999999,
+                            Price100 = 62.899999999999999,
+                            Price50 = 62.899999999999999,
+                            Title = "İnci"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Author = "İhsan Oktay Anar",
+                            CategoryId = 1,
+                            Description = "Bir \"ilk kitap\", Türkçe edebiyatta yeni ve pırıltılı bir yazar... \"Yeniçeriler kapıyı zorlarken\" düşler üstüne düşüncelere dalan Uzun İhsan Efendi, kapı kırıldığında klasik ama hep yeni kalabilen sonuca ulaşmak üzeredir: \"Dünya bir düştür. Evet, dünya... Ah! Evet, dünya bir masaldır.\" Geçmiş üzerine, dünya hali üzerine, düşler ve \"puslu kıtalar\" üzerine bir roman. Hulki Aktunç`un önsözüyle...",
+                            ISBN = "9789754704723",
+                            ImageURL = "",
+                            ListPrice = 144.30000000000001,
+                            Price = 144.30000000000001,
+                            Price100 = 144.30000000000001,
+                            Price50 = 144.30000000000001,
+                            Title = "Puslu Kıtalar Atlası"
                         });
                 });
 

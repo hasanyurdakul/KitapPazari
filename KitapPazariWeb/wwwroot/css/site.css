@@ -12,15 +12,15 @@ for details on configuring this project to bundle and minify static web assets. 
     box-shadow:0 -2px;
 }
 
-/*.footer {
+.footer {
     position: relative;
     bottom: 0;
     width: 75%;
     white-space: nowrap;
     line-height: 60px;
-}*/
+}
 
-a.navbar-brand {
+/*a.navbar-brand {
     white-space: normal;
     text-align: center;
     word-break: break-all;
@@ -105,7 +105,7 @@ bg-success {
 
 .card {
     border-color: #425F4B !important;
-}
+}*/
 
 
 
@@ -113,7 +113,7 @@ bg-success {
 
 
 
-.btn-outline-primary {
+/*.btn-outline-primary {
     color: #192E2F;
     border-color: #192E2F;
 }
@@ -240,7 +240,7 @@ bg-success {
     .btn-outline-secondary:disabled, .btn-outline-secondary.disabled {
         color: #134b5f;
         background-color: transparent;
-    }
+    }*/
 
 
 
@@ -249,7 +249,7 @@ bg-success {
 
 
 
-.btn-primary {
+/*.btn-primary {
     color: #fff;
     background-color: #192E2F;
     border-color: #192E2F;
@@ -499,7 +499,7 @@ bg-success {
     .btn-outline-success:disabled, .btn-outline-success.disabled {
         color: #4b7147;
         background-color: transparent;
-    }
+    }*/
 
 
 
@@ -508,7 +508,7 @@ bg-success {
 
 
 
-.btn-success {
+/*.btn-success {
     color: #fff;
     background-color: #4b7147;
     border-color: #4b7147;
@@ -555,4 +555,4 @@ bg-success {
         color: #fff;
         background-color: #578553;
         border-color: #578553;
-    }
+    }*/
