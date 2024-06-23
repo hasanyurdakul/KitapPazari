@@ -1,4 +1,4 @@
-﻿using KitapPazariDataAccess.Repository.IRepository;
+using KitapPazariDataAccess.Repository.IRepository;
 using KitapPazariModels;
 using KitapPazariModels.ViewModels;
 using KitapPazariUtility;
@@ -66,7 +66,6 @@ namespace KitapPazariWeb.Areas.Customer.Controllers
                 {
                     shoppingCartFromDatabase.Count--;
                     _unitOfWork.ShoppingCart.Update(shoppingCartFromDatabase);
-
                 }
                 _unitOfWork.Save();
             }
@@ -82,7 +81,6 @@ namespace KitapPazariWeb.Areas.Customer.Controllers
                 HttpContext.Session.SetInt32(StaticDetails.SessionCart, _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == shoppingCartFromDatabase.ApplicationUserId).Count() - 1);
                 _unitOfWork.ShoppingCart.Remove(shoppingCartFromDatabase);
                 _unitOfWork.Save();
-
             }
 
             return RedirectToAction(nameof(Index));
@@ -90,7 +88,6 @@ namespace KitapPazariWeb.Areas.Customer.Controllers
 
         public IActionResult Summary()
         {
-
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
             ShoppingCartViewModel = new ShoppingCartViewModel()
@@ -120,7 +117,6 @@ namespace KitapPazariWeb.Areas.Customer.Controllers
         [ActionName("Summary")]
         public IActionResult SummaryPOST()
         {
-
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
             ShoppingCartViewModel.ShoppingCardList = _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == userId, includeProperties: "Product");
@@ -199,14 +195,12 @@ namespace KitapPazariWeb.Areas.Customer.Controllers
                     options.LineItems.Add(sessionLineItem);
                 }
 
-
                 var service = new SessionService();
                 Session session = service.Create(options);
                 _unitOfWork.OrderHeader.UpdateStripePaymentId(ShoppingCartViewModel.OrderHeader.Id, session.Id, session.PaymentIntentId);
                 _unitOfWork.Save();
                 Response.Headers.Add("Location", session.Url);
                 return StatusCode(303);
-
             }
             return RedirectToAction(nameof(OrderConfirmation), new { id = ShoppingCartViewModel.OrderHeader.Id });
         }
@@ -248,8 +242,5 @@ namespace KitapPazariWeb.Areas.Customer.Controllers
                 return shoppingCart.Product.Price100;
             }
         }
-
-
-
     }
 }

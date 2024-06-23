@@ -1,4 +1,4 @@
-﻿using KitapPazariDataAccess.Data;
+using KitapPazariDataAccess.Data;
 using KitapPazariDataAccess.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -55,7 +55,6 @@ namespace KitapPazariDataAccess.Repository
                 }
             }
             return query.ToList();
-
         }
 
         public void Remove(T entity)

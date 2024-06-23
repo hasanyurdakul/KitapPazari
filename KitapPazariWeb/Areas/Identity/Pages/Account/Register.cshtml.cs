@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
@@ -124,13 +124,10 @@ namespace KitapPazariWeb.Areas.Identity.Pages.Account
             public int? CompanyId { get; set; }
             [ValidateNever]
             public IEnumerable<SelectListItem> CompanyList { get; set; }
-
         }
-
 
         public async Task OnGetAsync(string returnUrl = null)
         {
-        
             Input = new()
             {
                 RoleList = _roleManager.Roles.Select(x => x.Name).Select(i => new SelectListItem
@@ -170,12 +167,10 @@ namespace KitapPazariWeb.Areas.Identity.Pages.Account
                     user.CompanyId = Input.CompanyId;
                 }
 
-
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)
                 {
-
                     _logger.LogInformation("User created a new account with password.");
 
                     if (!String.IsNullOrEmpty(Input.Role))

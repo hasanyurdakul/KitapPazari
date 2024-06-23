@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -44,8 +44,5 @@ namespace KitapPazariModels
         public string State { get; set; }
         [Required]
         public string PostalCode { get; set; }
-
-
-
     }
 }

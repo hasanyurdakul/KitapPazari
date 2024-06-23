@@ -1,4 +1,4 @@
-﻿using KitapPazariDataAccess.Repository.IRepository;
+using KitapPazariDataAccess.Repository.IRepository;
 using KitapPazariModels;
 using KitapPazariModels.ViewModels;
 using KitapPazariUtility;
@@ -26,7 +26,6 @@ namespace KitapPazariWeb.Areas.Admin.Controllers
 
         public IActionResult Upsert(int? id)
         {
-
             if (id == null || id == 0)
             {
                 //create
@@ -44,7 +43,6 @@ namespace KitapPazariWeb.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-
                 if (companyObject.Id == 0)
                 {
                     _unitOfWork.Company.Add(companyObject);
@@ -59,9 +57,7 @@ namespace KitapPazariWeb.Areas.Admin.Controllers
             }
             else
             {
-
                 return View(companyObject);
-
             }
         }
 
@@ -88,9 +84,6 @@ namespace KitapPazariWeb.Areas.Admin.Controllers
 
             return Json(new { success = true, message = "Delete Successful" });
         }
-
-
-
 
         #endregion
     }

@@ -1,4 +1,4 @@
-﻿using KitapPazariDataAccess.Repository.IRepository;
+using KitapPazariDataAccess.Repository.IRepository;
 using KitapPazariModels;
 using KitapPazariModels.ViewModels;
 using KitapPazariUtility;
@@ -95,7 +95,6 @@ namespace KitapPazariWeb.Areas.Admin.Controllers
                     Value = u.Id.ToString()
                 });
                 return View(productViewModel);
-
             }
         }
 
@@ -131,9 +130,6 @@ namespace KitapPazariWeb.Areas.Admin.Controllers
 
             return Json(new { success = true, message = "Delete Successful" });
         }
-
-
-
 
         #endregion
     }

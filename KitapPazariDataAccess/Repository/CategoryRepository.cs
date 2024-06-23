@@ -1,4 +1,4 @@
-﻿using KitapPazariDataAccess.Data;
+using KitapPazariDataAccess.Data;
 using KitapPazariDataAccess.Repository.IRepository;
 using KitapPazariModels;
 using System;
@@ -17,8 +17,6 @@ namespace KitapPazariDataAccess.Repository
         {
             _context = context;
         }
-
-       
 
         public void Update(Category category)
         {

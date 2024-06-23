@@ -1,4 +1,4 @@
-﻿using KitapPazariDataAccess.Seed;
+using KitapPazariDataAccess.Seed;
 using KitapPazariModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -11,7 +11,6 @@ namespace KitapPazariDataAccess.Data
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
-
         }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
@@ -26,9 +25,7 @@ namespace KitapPazariDataAccess.Data
             modelBuilder.ApplyConfiguration(new CategorySeed());
             modelBuilder.ApplyConfiguration(new ProductSeed());
             modelBuilder.ApplyConfiguration(new CompanySeed());
-            
         }
-
     }
 }
 
