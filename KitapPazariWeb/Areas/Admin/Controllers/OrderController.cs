@@ -1,4 +1,4 @@
-﻿using KitapPazariDataAccess.Repository.IRepository;
+using KitapPazariDataAccess.Repository.IRepository;
 using KitapPazariModels;
 using KitapPazariModels.ViewModels;
 using KitapPazariUtility;
@@ -67,7 +67,6 @@ namespace KitapPazariWeb.Areas.Admin.Controllers
             });
         }
 
-
         [HttpPost]
         [Authorize(Roles = StaticDetails.Role_Employee + "," + StaticDetails.Role_Admin)]
         public IActionResult StartProcessing()
@@ -80,7 +79,6 @@ namespace KitapPazariWeb.Areas.Admin.Controllers
                 orderId = _orderViewModel.OrderHeader.Id
             });
         }
-
 
         [HttpPost]
         [Authorize(Roles = StaticDetails.Role_Employee + "," + StaticDetails.Role_Admin)]
@@ -104,7 +102,6 @@ namespace KitapPazariWeb.Areas.Admin.Controllers
             });
         }
 
-
         [HttpPost]
         [Authorize(Roles = StaticDetails.Role_Employee + "," + StaticDetails.Role_Admin)]
         public IActionResult CancelOrder()
@@ -124,7 +121,6 @@ namespace KitapPazariWeb.Areas.Admin.Controllers
             else
             {
                 _unitOfWork.OrderHeader.UpdateStatus(orderHeader.Id, StaticDetails.StatusCancelled, StaticDetails.StatusCancelled);
-
             }
             _unitOfWork.OrderHeader.Update(orderHeader);
             _unitOfWork.Save();
@@ -143,7 +139,6 @@ namespace KitapPazariWeb.Areas.Admin.Controllers
                 .Get(u => u.Id == _orderViewModel.OrderHeader.Id, includeProperties: "ApplicationUser");
             _orderViewModel.OrderDetails = _unitOfWork.OrderDetail
                 .GetAll(o => o.OrderHeaderId == _orderViewModel.OrderHeader.Id, includeProperties: "Product");
-
 
             var domain = Request.Scheme + "://" + Request.Host.Value + "/";
             var options = new SessionCreateOptions
@@ -173,7 +168,6 @@ namespace KitapPazariWeb.Areas.Admin.Controllers
                 options.LineItems.Add(sessionLineItem);
             }
 
-
             var service = new SessionService();
             Session session = service.Create(options);
             _unitOfWork.OrderHeader.UpdateStripePaymentId(_orderViewModel.OrderHeader.Id, session.Id, session.PaymentIntentId);
@@ -181,8 +175,6 @@ namespace KitapPazariWeb.Areas.Admin.Controllers
             Response.Headers.Add("Location", session.Url);
             return StatusCode(303);
         }
-
-
 
         public IActionResult PaymentConfirmation(int orderHeaderId)
         {
@@ -210,7 +202,6 @@ namespace KitapPazariWeb.Areas.Admin.Controllers
             if (User.IsInRole(StaticDetails.Role_Admin) || User.IsInRole(StaticDetails.Role_Employee))
             {
                 objOrderHeaderList = _unitOfWork.OrderHeader.GetAll(includeProperties: "ApplicationUser").ToList();
-
             }
             else
             {
@@ -218,8 +209,6 @@ namespace KitapPazariWeb.Areas.Admin.Controllers
                 var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
                 objOrderHeaderList = _unitOfWork.OrderHeader.GetAll(u => u.ApplicationUserId == userId, includeProperties: "ApplicationUser").ToList();
             }
-
-
 
             switch (status)
             {
@@ -238,13 +227,6 @@ namespace KitapPazariWeb.Areas.Admin.Controllers
                 default:
                     break;
             }
-
-
-
-
-
-
-
 
             return Json(new { data = objOrderHeaderList });
         }

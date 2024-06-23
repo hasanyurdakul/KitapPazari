@@ -1,4 +1,4 @@
-﻿using KitapPazariDataAccess.Data;
+using KitapPazariDataAccess.Data;
 using KitapPazariDataAccess.Repository.IRepository;
 using KitapPazariModels;
 using KitapPazariModels.ViewModels;
@@ -27,7 +27,6 @@ namespace KitapPazariWeb.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
-
             return View();
         }
 
@@ -55,12 +54,10 @@ namespace KitapPazariWeb.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult RoleManagement(RoleManagementViewModel roleManagementViewModel)
         {
-
             string oldRole = _userManager.GetRolesAsync(_unitOfWork.ApplicationUser.Get(u => u.Id == roleManagementViewModel.ApplicationUser.Id))
                     .GetAwaiter().GetResult().FirstOrDefault();
 
             ApplicationUser applicationUser = _unitOfWork.ApplicationUser.Get(u => u.Id == roleManagementViewModel.ApplicationUser.Id);
-
 
             if (!(roleManagementViewModel.ApplicationUser.Role == oldRole))
             {
@@ -78,7 +75,6 @@ namespace KitapPazariWeb.Areas.Admin.Controllers
 
                 _userManager.RemoveFromRoleAsync(applicationUser, oldRole).GetAwaiter().GetResult();
                 _userManager.AddToRoleAsync(applicationUser, roleManagementViewModel.ApplicationUser.Role).GetAwaiter().GetResult();
-
             }
             else
             {
@@ -112,7 +108,6 @@ namespace KitapPazariWeb.Areas.Admin.Controllers
                         Name = ""
                     };
                 }
-
             }
             return Json(new { data = objUserList });
         }
@@ -138,9 +133,6 @@ namespace KitapPazariWeb.Areas.Admin.Controllers
 
             return Json(new { success = true, message = "Locking/Unlocking Successful" });
         }
-
-
-
 
         #endregion
     }

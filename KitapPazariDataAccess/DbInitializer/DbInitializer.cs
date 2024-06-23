@@ -1,4 +1,4 @@
-﻿using KitapPazariDataAccess.Data;
+using KitapPazariDataAccess.Data;
 using KitapPazariModels;
 using KitapPazariUtility;
 using Microsoft.AspNetCore.Identity;
@@ -28,8 +28,6 @@ namespace KitapPazariDataAccess.DbInitializer
             _roleManager = roleManager;
             _context = context;
         }
-
-
 
         public void Inialize()
         {
@@ -73,7 +71,6 @@ namespace KitapPazariDataAccess.DbInitializer
             }
 
             return;
-           
         }
     }
 }

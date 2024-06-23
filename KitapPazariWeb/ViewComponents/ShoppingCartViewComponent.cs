@@ -1,4 +1,4 @@
-﻿using KitapPazariDataAccess.Repository.IRepository;
+using KitapPazariDataAccess.Repository.IRepository;
 using KitapPazariUtility;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -23,7 +23,6 @@ namespace KitapPazariWeb.ViewComponents
                     HttpContext.Session.SetInt32(StaticDetails.SessionCart, _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == claim.Value).Count());
                 }
                     return View(HttpContext.Session.GetInt32(StaticDetails.SessionCart));
-
             }
             else
             {

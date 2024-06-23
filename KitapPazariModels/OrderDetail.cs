@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -11,7 +11,6 @@ namespace KitapPazariModels
 {
     public class OrderDetail
     {
-
         public int Id { get; set; }
         [Required]
         public int OrderHeaderId { get; set; }
